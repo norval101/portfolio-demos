@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Workforce Matching & Compliance Engine API
+  description: Reference implementation of a two-sided workforce candidate matching and regulatory compliance audit pipeline.
+  version: 1.0.0
+  contact:
+    name: Norval Mendez
+    email: norvalmendez.ca@gmail.com
+    url: https://norvalmendez.ca
+servers:
+  - url: http://localhost:8080
+    description: Local Sandbox Environment
+
+paths:
+  /health:
+    get:
+      summary: Service Health & Audit Status
+      responses:
+        '200':
+          description: Service is healthy and reports ledger status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+                  service:
+                    type: string
+                    example: workforce-matching-engine
+                  version:
+                    type: string
+                    example: 1.0.0
+                  audit_ledger_length:
+                    type: integer
+                    example: 4
+                  audit_integrity:
+                    type: boolean
+                    example: true
+
+  /api/v1/match:
+    post:
+      summary: Evaluate candidate against a job requisition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [candidate, requisition]
+              properties:
+                candidate:
+                  $ref: '#/components/schemas/Candidate'
+                requisition:
+                  $ref: '#/components/schemas/JobRequisition'
+      responses:
+        '200':
+          description: Evaluation completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchResult'
+        '400':
+          description: Invalid JSON or bad request
+
+  /api/v1/audit/integrity:
+    get:
+      summary: Verify the cryptographic integrity of the compliance ledger
+      responses:
+        '200':
+          description: Verification response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  audit_chain_valid:
+                    type: boolean
+                    example: true
+                  total_records:
+                    type: integer
+                    example: 12
+
+components:
+  schemas:
+    Candidate:
+      type: object
+      required: [id, name, noc_code, years_experience]
+      properties:
+        id:
+          type: string
+          example: cand-101
+        name:
+          type: string
+          example: Alex Mercer
+        noc_code:
+          type: string
+          example: "21232"
+        years_experience:
+          type: number
+          example: 5.5
+        skills:
+          type: array
+          items:
+            type: string
+          example: ["Python", "Docker", "REST APIs", "AWS"]
+        clb_level:
+          type: integer
+          example: 8
+        compliance_cleared:
+          type: boolean
+          example: true
+
+    JobRequisition:
+      type: object
+      required: [id, title, target_noc, min_experience_years]
+      properties:
+        id:
+          type: string
+          example: req-900
+        title:
+          type: string
+          example: Lead Systems Engineer
+        target_noc:
+          type: string
+          example: "21232"
+        min_experience_years:
+          type: number
+          example: 4.0
+        required_skills:
+          type: array
+          items:
+            type: string
+          example: ["Python", "REST APIs"]
+        min_clb_level:
+          type: integer
+          example: 7
+        compliance_required:
+          type: boolean
+          example: true
+
+    ScoreBreakdown:
+      type: object
+      properties:
+        noc:
+          type: number
+          example: 100.0
+        experience:
+          type: number
+          example: 95.0
+        skills:
+          type: number
+          example: 100.0
+        language:
+          type: number
+          example: 100.0
+        composite:
+          type: number
+          example: 98.75
+
+    MatchResult:
+      type: object
+      properties:
+        candidate_id:
+          type: string
+          example: cand-101
+        requisition_id:
+          type: string
+          example: req-900
+        status:
+          type: string
+          enum: [RECOMMENDED, QUALIFIED_WITH_CONDITIONS, REJECTED]
+          example: RECOMMENDED
+        scores:
+          $ref: '#/components/schemas/ScoreBreakdown'
+        reasons:
+          type: array
+          items:
+            type: string
+        is_compliant:
+          type: boolean
+          example: true
+        audit_hash:
+          type: string
+          example: 6a8d6f1a9e88b90a3...
+        evaluated_at:
+          type: string
+          format: date-time
