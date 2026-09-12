@@ -8,7 +8,7 @@
 [![GitHub Profile](https://img.shields.io/badge/GitHub-norval101-181717?style=flat&logo=github)](https://github.com/norval101)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Norval_Mendez-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/norval-mendez-369a2611a)
 [![Portfolio](https://img.shields.io/badge/Website-norvalmendez.ca-0052CC?style=flat&logo=googlechrome)](https://norvalmendez.ca)
-[![Tests Passing](https://img.shields.io/badge/Tests-29%2F29%20Passing-brightgreen?style=flat&logo=checkmarx)](https://github.com/norval101/portfolio-demos)
+[![Tests Passing](https://img.shields.io/badge/Tests-42%2F42%20Passing-brightgreen?style=flat&logo=checkmarx)](https://github.com/norval101/portfolio-demos)
 [![Architecture Blueprints](https://img.shields.io/badge/Architecture%20Blueprints-9%20Systems-blueviolet?style=flat&logo=diagramsdotnet)](https://github.com/norval101/portfolio-demos#-system-architecture-gallery)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -487,31 +487,41 @@ flowchart TD
 
 ---
 
-## 📁 Five Functional Reference Sandboxes (Included in this Repo)
+## 📁 Nine Functional Reference Sandboxes (Included in this Repo)
 
-To complement the architectural blueprints above, **five fully tested, self-contained reference sandboxes** are implemented directly within this repository. All code is clean, modular, and requires **zero external runtime dependencies** (runs on standard Python 3.10+):
+To complement the architectural blueprints above, **nine fully tested, self-contained reference sandboxes** are implemented directly within the [`demos/`](./demos) folder. For full directory specifications and architectural deconstructions, visit the [**Demos Master Directory**](./demos/README.md).
 
-| Sandbox | Domain / Inspiration | Core Algorithms & Features | Test Suite |
-| :--- | :--- | :--- | :---: |
-| [`demos/workforce-matching-engine/`](./demos/workforce-matching-engine) | `LMIAPro` / `WATSOF` | Two-sided candidate matching, weighted NOC/experience/skills scoring, SHA-256 chained audit ledger, REST API + OpenAPI 3.0 | **8/8 Passing** |
-| [`demos/document-audit-pipeline/`](./demos/document-audit-pipeline) | `WATSOF` AI Vetting | Multi-stage document verification (checksums, temporal bounds, name token similarity, regulatory validity) | **5/5 Passing** |
-| [`demos/loan-underwriting-amortization/`](./demos/loan-underwriting-amortization) | `loan-managment-software` | Credit underwriting risk decisioning (DTI/DSCR), precision reducing-balance PMT amortization, double-entry general ledger | **10/10 Passing** |
-| [`demos/solar-iot-telemetry-engine/`](./demos/solar-iot-telemetry-engine) | `solar-engineering` / `nht-solar` | Streaming inverter telemetry ingestion, STC temperature-derated yield modeling, thermal hotspot & open-string detection | **4/4 Passing** |
-| [`demos/retail-merchandising-audit/`](./demos/retail-merchandising-audit) | `mechandizing-software` | Planogram (POG) compliance scoring, Brand Share of Shelf (SoS), Out-of-Stock (OOS) alerting, Store Execution Score (SES) | **2/2 Passing** |
+All code is written in clean, modern Python standard library with **zero external runtime dependencies** (no `pip install` required):
+
+| # | Sandbox Directory | Target Domain & Inspiration | Core Architectural Patterns & Algorithms | Tests |
+| :-: | :--- | :--- | :--- | :-: |
+| **1** | [`demos/workforce-matching-engine/`](./demos/workforce-matching-engine) | `LMIAPro` / `WATSOF` | Two-sided candidate matching, deterministic weighted NOC/experience/skills scoring, SHA-256 chained audit ledger, REST API + OpenAPI 3.0 | **8/8 Passing** |
+| **2** | [`demos/document-audit-pipeline/`](./demos/document-audit-pipeline) | `WATSOF` AI Vetting | Multi-stage document verification (SHA-256 checksums, temporal validity, token similarity, 94% rejection reduction logic) | **5/5 Passing** |
+| **3** | [`demos/loan-underwriting-amortization/`](./demos/loan-underwriting-amortization) | `loan-managment-software` | Credit underwriting risk decisioning (DTI/DSCR), precision reducing-balance PMT amortization, double-entry general ledger | **10/10 Passing** |
+| **4** | [`demos/solar-iot-telemetry-engine/`](./demos/solar-iot-telemetry-engine) | `solar-engineering` / `nht-solar` | Streaming inverter telemetry ingestion, STC temperature-derated yield modeling, thermal hotspot & open-string detection | **4/4 Passing** |
+| **5** | [`demos/retail-merchandising-audit/`](./demos/retail-merchandising-audit) | `mechandizing-software` | Planogram (POG) compliance scoring, Brand Share of Shelf (SoS), Out-of-Stock (OOS) alerting, Store Execution Score (SES) | **2/2 Passing** |
+| **6** | [`demos/cross-border-escrow-rfq/`](./demos/cross-border-escrow-rfq) | `WindMade.ca` | B2B machining capacity matching, automated CUSMA/USMCA origin certificate generator, 5-day inspection escrow state machine | **4/4 Passing** |
+| **7** | [`demos/crm-storage-virtualization/`](./demos/crm-storage-virtualization) | `client-crm` | Pluggable storage driver abstraction, transparent dual-read fallback, zero-downtime S3 migration engine with SHA-256 verification | **3/3 Passing** |
+| **8** | [`demos/proptech-lead-attribution/`](./demos/proptech-lead-attribution) | `propOSFlow` / `realtor-lead` | Role-based tenant routing (Platform, Association, Broker, Member), regulatory ethics gating, multi-touch linear lead attribution | **3/3 Passing** |
+| **9** | [`demos/ngo-grant-governance/`](./demos/ngo-grant-governance) | `cariphil` | Multi-party grant governance, milestone-based tranche disbursements, anti-diversion financial checks, committee sign-off ledger | **3/3 Passing** |
 
 ---
 
-## 🧪 Run All Repository Tests (29/29 Passing)
+## 🧪 Run All Repository Tests (42/42 Passing)
 
-You can run all 29 unit tests across all five sandboxes with one command:
+You can run all 42 unit tests across all nine sandboxes with one command:
 
 ```bash
-# Run all test suites simultaneously from root
-python -m unittest discover -s demos/workforce-matching-engine/tests -t demos/workforce-matching-engine -p "test_*.py"
-python -m unittest discover -s demos/document-audit-pipeline/tests -t demos/document-audit-pipeline -p "test_*.py"
-python -m unittest discover -s demos/loan-underwriting-amortization/tests -t demos/loan-underwriting-amortization -p "test_*.py"
-python -m unittest discover -s demos/solar-iot-telemetry-engine/tests -t demos/solar-iot-telemetry-engine -p "test_*.py"
-python -m unittest discover -s demos/retail-merchandising-audit/tests -t demos/retail-merchandising-audit -p "test_*.py"
+# Run all test suites simultaneously from root (zero external dependencies required)
+python -m unittest discover -s demos/workforce-matching-engine/tests -t demos/workforce-matching-engine -p "test_*.py" ; `
+python -m unittest discover -s demos/document-audit-pipeline/tests -t demos/document-audit-pipeline -p "test_*.py" ; `
+python -m unittest discover -s demos/loan-underwriting-amortization/tests -t demos/loan-underwriting-amortization -p "test_*.py" ; `
+python -m unittest discover -s demos/solar-iot-telemetry-engine/tests -t demos/solar-iot-telemetry-engine -p "test_*.py" ; `
+python -m unittest discover -s demos/retail-merchandising-audit/tests -t demos/retail-merchandising-audit -p "test_*.py" ; `
+python -m unittest discover -s demos/cross-border-escrow-rfq/tests -t demos/cross-border-escrow-rfq -p "test_*.py" ; `
+python -m unittest discover -s demos/crm-storage-virtualization/tests -t demos/crm-storage-virtualization -p "test_*.py" ; `
+python -m unittest discover -s demos/proptech-lead-attribution/tests -t demos/proptech-lead-attribution -p "test_*.py" ; `
+python -m unittest discover -s demos/ngo-grant-governance/tests -t demos/ngo-grant-governance -p "test_*.py"
 ```
 
 ---
